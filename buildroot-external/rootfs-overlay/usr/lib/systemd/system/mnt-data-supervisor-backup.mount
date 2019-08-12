@@ -2,11 +2,12 @@
 Description=Data backup partition
 Before=umount.target local-fs.target
 Conflicts=umount.target
+After=dev-disk-by\x2dlabel-BACKUP.device
 ConditionPathExists=/dev/disk/by-label/BACKUP
 
 [Mount]
 What=/dev/disk/by-label/BACKUP
-Where=/mnt/data/supervisor/
+Where=/mnt/data/supervisor/backup
 Type=auto
 
 [Install]
