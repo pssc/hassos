@@ -1,0 +1,13 @@
+[Unit]
+Description=Data backup partition
+Before=umount.target local-fs.target
+Conflicts=umount.target
+ConditionPathExists=/dev/disk/by-label/BACKUP
+
+[Mount]
+What=/dev/disk/by-label/BACKUP
+Where=/mnt/data/supervisor/
+Type=auto
+
+[Install]
+WantedBy=local-fs.target
