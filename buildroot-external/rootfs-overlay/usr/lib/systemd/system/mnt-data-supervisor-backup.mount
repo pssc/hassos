@@ -1,14 +1,10 @@
 [Unit]
-Description=Data backup partition
-Before=umount.target local-fs.target
-Conflicts=umount.target
-After=dev-disk-by\x2dlabel-BACKUP.device
-ConditionPathExists=/dev/disk/by-label/BACKUP
+Description=HassOS data backup partition
 
 [Mount]
 What=/dev/disk/by-label/BACKUP
 Where=/mnt/data/supervisor/backup
 Type=auto
+Options=nosuid,relatime,noexec
+SloppyOptions=yes
 
-[Install]
-WantedBy=local-fs.target

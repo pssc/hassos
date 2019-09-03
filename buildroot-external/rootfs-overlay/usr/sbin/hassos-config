@@ -5,6 +5,20 @@ USB_CONFIG="/mnt/config"
 CONFIG_DIR=""
 USE_USB=0
 
+
+# Check and mount usb BACKUP to folder
+if findfs LABEL="BACKUP" > /dev/null 2>&1; then
+    echo "[Info] Found USB stick for BACKUPS"
+
+    if ! systemctl -q is-active multi-user.target;then
+       echo "[Info] Use USB stick for BACKUPS"
+       systemctl start mnt-data-supervisor-backup.mount
+       if ! systemctl -q is-active mnt-data-supervisor-backup.mount; then
+          echo "[Error] Can't mount backup partition"
+       fi
+    fi
+fi
+
 # Check and mount usb CONFIG to folder
 if findfs LABEL="CONFIG" > /dev/null 2>&1; then
     echo "[Info] Use USB stick for import CONFIG"
